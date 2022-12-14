@@ -13,8 +13,8 @@ class ObstacleManager:
             if random.randint(0, 2) == 0:
               self.obstacles.append(Cactus(SMALL_CACTUS))
             elif random.randint(0, 2) == 1:
-               self.obstacles.append(Cactus(LARGE_CACTUS))
-            elif random.randint(0,3) == 2:
+               self.obstacles.append(LargeCactus(LARGE_CACTUS))
+            elif random.randint(0,2) == 2:
                self.obstacles.append(Bird(BIRD))
 
         for obstacle in self.obstacles:

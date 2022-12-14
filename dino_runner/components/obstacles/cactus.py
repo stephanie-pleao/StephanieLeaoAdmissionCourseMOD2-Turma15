@@ -12,7 +12,7 @@ class Cactus(Obstacle):
 class LargeCactus(Obstacle):
     def __init__(self, image):
         self.type = random.randint(0, 2)
-        super().__init__(image.self.type)
+        super().__init__(image, self.type)
         self.rect.y = 300
 
 class Bird(Obstacle):
@@ -25,6 +25,6 @@ class Bird(Obstacle):
     def draw(self, SCREEN):
         if self.index >= 9:
             self.index = 0
-        SCREEN.blit(self.image[self.index//5], self.rect)
+        SCREEN.blit(self.image[self.index//5], self.rect.x, self.rect.y)
         self.index += 1
         
