@@ -1,4 +1,6 @@
 import pygame
+
+from pygame.sprite import Sprite
 from dino_runner.utils.constants import RUNNING, JUMPING, DUCKING
 
 
@@ -7,7 +9,7 @@ Y_POS = 310
 JUMP_VEL = 8.5
 Y_POS_DUCK = 340
 
-class Dinossaur:
+class Dinossaur(Sprite):
     def __init__(self):
         self.image = RUNNING[0]
         self.duck_img = DUCKING
@@ -27,20 +29,20 @@ class Dinossaur:
         if self.dino_run:
             self.run()
 
-        if self.dino_jump:
+        if self.dino_jump: #pode mudar p elif
             self.jump()
-        if self.dino_duck:
-            self.duck()
+        if self.dino_duck: #pode mudar p elif
+            self.duck() #adcionou o metodo duck
 
-        if user_input[pygame.K_UP] and not self.dino_jump:
+        if user_input[pygame.K_UP] and not self.dino_jump: #verifica p pular
             self.dino_jump = True
             self.dino_run = False
             self.dino_duck = False
-        elif user_input[pygame.K_DOWN] and not self.dino_jump:
+        elif user_input[pygame.K_DOWN] and not self.dino_jump: #verifica abaixando
             self.dino_jump = False
             self.dino_run = False
             self.dino_duck = True
-        elif not (self.dino_jump or user_input[pygame.K_DOWN]):
+        elif not (self.dino_jump or user_input[pygame.K_DOWN]): #verifica correndo
             self.dino_jump = False
             self.dino_run = True
             self.dino_duck = False
@@ -69,7 +71,7 @@ class Dinossaur:
         self.dino_rect.x = X_POS
         self.dino_rect.y = Y_POS
         self.step_index += 1
-    def duck(self):
+    def duck(self): #metodo duck p abaixar
         self.image = self.duck_img[self.step_index // 5]
         self.dino_rect = self.image.get_rect()
         self.dino_rect.x = X_POS
