@@ -79,7 +79,7 @@ class Game:
         font = pygame.font.Font(FONT_STYLE, 22)
         text = font.render(f"Score: {self.score}", True, (0, 0, 0))
         text_rect = text.get_rect()
-        text_rect_center = (800, 50)
+        text_rect_center = (1000, 50)
         self.screen.blit(text, text_rect_center)
 
     def handle_events_on_menu(self):
@@ -92,14 +92,14 @@ class Game:
 
     def show_menu(self):
         self.screen.fill((255, 255, 255))
-        half_screen_height = SCREEN_HEIGHT - 250
-        half_screen_width = SCREEN_WIDTH - 580
+        half_screen_height = SCREEN_HEIGHT // 2
+        half_screen_width = SCREEN_WIDTH // 3 
 
         if self.death_count == 0:
             font = pygame.font.Font(FONT_STYLE, 22)
             text = font.render("Press any key to start", True, (0, 0, 0))
             text_rect = text.get_rect()
-            text_rect_center = (half_screen_width - 100 , half_screen_height - 100)
+            text_rect_center = (half_screen_width, half_screen_height)
             self.screen.blit(text, text_rect_center)
         else:
             self.screen.blit(ICON, (half_screen_width - 20, half_screen_height - 140))
