@@ -1,9 +1,8 @@
 import pygame
 
 from dino_runner.components.dinossaur import Dinossaur
-
-from dino_runner.components.obstacles.obstacle_manager import ObstacleManager
 from dino_runner.utils.constants import BG, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS
+from dino_runner.components.obstacles.obstacle_manager import ObstacleManager
 
 FONT_STYLE = "freesansbold.ttf"
 
@@ -42,7 +41,6 @@ class Game:
             self.update()
             self.draw()
           
-
     def events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -51,8 +49,8 @@ class Game:
 
     def update(self): 
         user_input = pygame.key.get_pressed()
-        self.obstacle_manager.update(self)
         self.player.update(user_input)
+        self.obstacle_manager.update(self)
         self.update_score()
     
     def update_score(self):
@@ -86,10 +84,10 @@ class Game:
         text = font.render(f"Score: {self.score}", True, (0, 0, 0))
         text_rect = text.get_rect()
         text_rect_center = (1000, 50)
-        self.sccreen.blit(text, text_rect_center)
+        self.screen.blit(text, text_rect_center)
 
     def handle_events_on_menu(self):
-        for even in pygame.event.get():
+        for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.playing = False
                 self.running = False
@@ -98,7 +96,7 @@ class Game:
 
 
     def show_menu(self):
-        self.screen.fill((255, 255,255))
+        self.screen.fill((255, 255, 255))
         half_screen_height = SCREEN_HEIGHT // 2
         half_screen_width = SCREEN_WIDTH // 2
 
