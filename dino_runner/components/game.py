@@ -88,7 +88,7 @@ class Game:
         text_rect_center = (1000, 50)
         self.sccreen.blit(text, text_rect_center)
 
-    def handle_events_on_menu():
+    def handle_events_on_menu(self):
         for even in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.playing = False
