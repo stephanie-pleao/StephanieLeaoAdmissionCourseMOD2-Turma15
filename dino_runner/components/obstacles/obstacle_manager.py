@@ -24,6 +24,8 @@ class ObstacleManager:
         for obstacle in self.obstacles:
             obstacle.update(game.game_speed, self.obstacles)
             if game.player.dino_rect.colliderect(obstacle.rect):
+                game.score -=1 #diminui o score para nao vantagem
+                game.game_speed = 20
                 pygame.time.delay(1000)
 
                 game.playing = False
