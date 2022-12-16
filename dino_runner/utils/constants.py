@@ -1,6 +1,6 @@
 import pygame
 import os
-##coisas que nao vao mudar
+
 # Global Constants
 TITLE = "Chrome Dino Runner"
 SCREEN_HEIGHT = 600
@@ -66,8 +66,11 @@ SHIELD = pygame.image.load(os.path.join(IMG_DIR, 'Other/shield.png'))
 HAMMER = pygame.image.load(os.path.join(IMG_DIR, 'Other/hammer.png'))
 
 BG = pygame.image.load(os.path.join(IMG_DIR, 'Other/Track.png'))
+GAME_OVER = pygame.image.load(os.path.join(IMG_DIR, 'Other/GameOver.png')) #para adiconar a imagem do gamer over
 
 HEART = pygame.image.load(os.path.join(IMG_DIR, 'Other/SmallHeart.png'))
 
 DEFAULT_TYPE = "default"
-SHIELD_TYPE = "shield"
+SHIELD_TYPE = "shield" ##constante p chamar o escudo
+HAMMER_TYPE = "hammer" ##constante p chamar o martelo
+

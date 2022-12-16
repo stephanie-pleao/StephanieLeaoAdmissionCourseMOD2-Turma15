@@ -1,7 +1,7 @@
 import pygame
 
-from dino_runner.components.dinossaur import Dinossaur
-from dino_runner.utils.constants import BG, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS, DEFAULT_TYPE
+from dino_runner.components.dinosaur import Dinosaur
+from dino_runner.utils.constants import BG, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS, DEFAULT_TYPE, GAME_OVER
 from dino_runner.components.obstacles.obstacle_manager import ObstacleManager
 from dino_runner.utils.text_utils import draw_message_component
 from dino_runner.components.power_ups.power_up_manager import PowerUpManager
@@ -17,15 +17,14 @@ class Game:
         self.playing = False
         self.running = False
         self.game_speed = 20
-        self.x_pos_bg = 0 
+        self.x_pos_bg = 0
         self.y_pos_bg = 380
-        self.score = 0 #m
-        self.death_count = 0 #s
-        self.player = Dinossaur()
+        self.score = 0
+        self.death_count = 0
+        self.player = Dinosaur()
         self.obstacle_manager = ObstacleManager()
         self.power_up_manager = PowerUpManager()
 
-        
     def execute(self):
         self.running = True
         while self.running:
@@ -40,13 +39,12 @@ class Game:
         self.playing = True
         self.obstacle_manager.reset_obstacles()
         self.power_up_manager.reset_power_ups()
-        self.game_speed = 20
-        self.score = 0
+        self.game_speed = 20 ##vai resetar a velocidade
+        self.score = 0 ##isso serve p mantem o score
         while self.playing:
             self.events()
             self.update()
             self.draw()
-
 
     def events(self):
         for event in pygame.event.get():
@@ -56,18 +54,21 @@ class Game:
 
     def update(self):
         user_input = pygame.key.get_pressed()
-        self.obstacle_manager.update(self)       
         self.player.update(user_input)
         self.update_score()
+        self.obstacle_manager.update(self)
+        self.power_up_manager.update(self.score, self.game_speed, self.player)
 
     def update_score(self):
         self.score += 1
         if self.score % 100 == 0:
             self.game_speed += 5
 
+        self.draw_score()
+
     def draw(self):
         self.clock.tick(FPS)
-        self.screen.fill((255, 255, 255)) #Também aceita código hexadecimal "#FFFFFF"
+        self.screen.fill((255, 0, 255)) #Também aceita código hexadecimal "#FFFFFF"
         self.draw_background()
         self.player.draw(self.screen)
         self.obstacle_manager.draw(self.screen)
@@ -125,7 +126,7 @@ class Game:
         if self.death_count == 0:
             draw_message_component("Press any key to start", self.screen)
         else:
-            draw_message_component("Press any key to restart", self.screen, pos_y_center=half_screen_height + 120)
+            draw_message_component("Press any key to restart", self.screen, pos_y_center=half_screen_height +120)
             draw_message_component(
                 f"Your score: {self.score}",
                 self.screen,
@@ -136,8 +137,12 @@ class Game:
                 self.screen,
                 pos_y_center=half_screen_height + 180
             )
+            self.screen.blit(GAME_OVER, (half_screen_width - 50, half_screen_height - 100)) ##p/ aparecer o game over
+            self.screen.blit(ICON, (half_screen_width + 60, half_screen_height - 40)) ##p/ aparecer o icone
 
-            self.screen.blit(ICON, (half_screen_width + 60, half_screen_height - 40))
+            
+ 
+
             
         pygame.display.update()
         self.handle_events_on_menu()

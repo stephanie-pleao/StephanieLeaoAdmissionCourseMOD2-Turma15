@@ -1,18 +1,23 @@
 import random
 import pygame
 
-from dino_runner.components.power_ups.shield import Shield
+from dino_runner.components.power_ups.shield import Shield #importei o poder
+from dino_runner.components.power_ups.hammer import Hammer #importei o martelo
 
 class PowerUpManager:
     def __init__(self):
         self.power_ups = []
         self.when_appears = 0
-    
+
     def generate_power_up(self, score):
         if len(self.power_ups) == 0 and self.when_appears == score:
-            self.when_appears =+ random.randint(200, 300)
-            self.power_ups.append(Shield())
-
+            ups = random.randint (0, 1)
+            if ups == 0:
+                self.when_appears += random.randint(200, 300)
+                self.power_ups.append(Shield())
+            elif ups == 1:
+                self.when_appears += random.randint (300, 400) #vai pegar o score e vai somar para aparecer na tela
+                self.power_ups.append(Hammer())
 
     def update(self, score, game_speed, player):
         self.generate_power_up(score)
@@ -29,7 +34,7 @@ class PowerUpManager:
     def draw(self, screen):
         for power_up in self.power_ups:
             power_up.draw(screen)
-    
+
     def reset_power_ups(self):
         self.power_ups = []
-        self.when_appears = random.randint(200, 300)
+        self.when_appears = random.randint(200, 300) #
